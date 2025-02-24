@@ -1,7 +1,7 @@
 from settings import *
 import pygame
 from random import choice
-
+from timer import Timer
 class Game:
 
     def __init__(self):
@@ -20,7 +20,20 @@ class Game:
 
         # tetromino
         self.tetromino = Tetromino(choice(list(TETROMINOS.keys())), self.sprites)
-        
+
+        # timers
+        self.timers = {
+            'vertical_move': Timer(UPDATE_START_SPEED, True, self.move_down),
+        }
+        self.timers['vertical_move'].activate()
+    
+    def timer_update(self):
+        for timer in self.timer.value():
+            timer.update()
+    
+    def move_down(self):
+        self.tetromino.move_down()  
+
 
     
     # desenhando a grid do jogo(area onde as pecas de tetris vão descer)
@@ -57,6 +70,10 @@ class Tetromino:
 
         # criando os blocks
         self.block = [Block(group, pos, self.color) for pos in self.block_positions]
+
+    def move_down(self):
+        for block in self.block:
+            block.pos.y += 1
 
 class Block(pygame.sprite.Sprite):
     def __init__(self, group, pos, color):

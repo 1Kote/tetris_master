@@ -5,12 +5,14 @@ from game import Game
 from score import Score
 from preview import Preview
 
+
 class Main:
     def __init__(self):
         
         #geral
         pygame.init()
         self.display_surface = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
+        
         # settando o clock pro jogo funcionar
         self.clock = pygame.time.Clock()
        
